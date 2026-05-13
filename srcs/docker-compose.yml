@@ -54,14 +54,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/mariadb   # stored on VM host
+      device: /home/${USER}/data/mariadb
 
   wordpress:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/wordpress  # stored on VM host
+      device: /home/${USER}/data/wordpress
 
 networks:
   inception:
