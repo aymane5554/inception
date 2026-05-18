@@ -1,11 +1,11 @@
-FROM alpine:3.18
+FROM alpine:3.22
 
 RUN apk update && apk add --no-cache \
-    php82 \
-    php82-fpm \
-    php82-mysqli \
-    php82-mbstring \
-    php82-phar \
+    php84 \
+    php84-fpm \
+    php84-mysqli \
+    php84-mbstring \
+    php84-phar \
     curl \
     php84-tokenizer \
     mariadb-client
@@ -16,7 +16,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 RUN mkdir -p /var/www/wordpress
 
-COPY conf/www.conf /etc/php82/php-fpm.d/www.conf
+COPY conf/www.conf /etc/php84/php-fpm.d/www.conf
 
 COPY tools/wp-setup.sh /usr/local/bin/wp-setup.sh
 RUN chmod +x /usr/local/bin/wp-setup.sh

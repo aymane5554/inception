@@ -43,4 +43,4 @@ if [ ! -f "$WP_PATH/wp-config.php" ]; then
     find "$WP_PATH" -type f -exec chmod 644 {} \;
 fi
 
-exec php-fpm82 -F
+exec php-fpm84 -F
