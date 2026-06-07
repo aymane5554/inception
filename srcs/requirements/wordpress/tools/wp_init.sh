@@ -3,12 +3,10 @@
 cd /var/www/wordpress
 
 until mysqladmin ping -h mariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; do
-    echo -e "me:maria are u alive ?\nmaria: no"
     sleep 2
 done
 
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
-    echo "Downloading WordPress..."
     php -d memory_limit=512M $(which wp) core download --allow-root --path=/var/www/wordpress
     wp config create \
         --dbname=${MYSQL_DATABASE} \
