@@ -30,6 +30,18 @@ services:
       - "443:443"
     restart: on-failure
 
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    restart: always
+    env_file: .env
+    networks:
+      - inception_network
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
+
 volumes:
   mariadb:
     driver: local
