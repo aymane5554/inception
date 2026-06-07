@@ -1,10 +1,11 @@
 #!/bin/sh
 set -e
 
+install -d /run/mysqld -o mysql -g mysql
+
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
     mysqld --user=mysql --bootstrap << EOF
-USE mysql;
 FLUSH PRIVILEGES;
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
@@ -16,4 +17,7 @@ FLUSH PRIVILEGES;
 EOF
 fi
 
-exec mysqld --user=mysql --console
+exec mysqld --user=mysql \
+    --datadir="/var/lib/mysql" \
+    --bind-address=0.0.0.0 \
+    --port=3306 
