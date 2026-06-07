@@ -1,6 +1,6 @@
 FROM alpine:3.22
 
-WORKDIR /var/www/html
+WORKDIR /var/www/wordpress
 
 COPY tools/init.sh /usr/local/bin/
 
