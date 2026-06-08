@@ -31,13 +31,11 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
         --allow-root \
         --path=/var/www/wordpress
 else
-    echo "WordPress is already installed."
 fi
 
 chown -R nobody:nobody /var/www/wordpress/wp-content
 chmod -R 775 /var/www/wordpress/wp-content
 
-echo "WordPress setup completed!"
 chown -R nobody:nobody /var/www/wordpress
 
 exec /usr/sbin/php-fpm84 -F
