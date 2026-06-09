@@ -28,7 +28,7 @@ services:
       - wordpress
     ports:
       - "443:443"
-    restart: on-failure
+    restart: always
 
   wordpress:
     build: ./requirements/wordpress

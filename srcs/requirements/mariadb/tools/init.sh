@@ -11,7 +11,4 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     FLUSH PRIVILEGES;" | mysqld --user=mysql --bootstrap
 fi
 
-exec mysqld --user=mysql \
-    --datadir="/var/lib/mysql" \
-    --bind-address=0.0.0.0 \
-    --port=3306
+exec mysqld --user=mysql
