@@ -30,7 +30,6 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
         --role=author \
         --allow-root \
         --path=/var/www/wordpress
-else
 fi
 
 chown -R nobody:nobody /var/www/wordpress/wp-content
