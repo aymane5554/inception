@@ -12,6 +12,6 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 RUN chmod +x /usr/local/bin/wp /usr/local/bin/wp_init.sh
 
-RUN sed -i 's/listen = 127.0.0.1:9000/listen = 9000/g' /etc/php84/php-fpm.d/www.conf
+COPY conf/www.conf  /etc/php84/php-fpm.d/www.conf
 
 ENTRYPOINT ["/usr/local/bin/wp_init.sh"]
