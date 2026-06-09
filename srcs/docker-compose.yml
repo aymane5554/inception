@@ -48,13 +48,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/mariadb
+      device: /home/ayel-arr/data/mariadb
   wordpress:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/${USER}/data/wordpress'
+      device: '/home/ayel-arr/data/wordpress'
 
 networks:
   inception:

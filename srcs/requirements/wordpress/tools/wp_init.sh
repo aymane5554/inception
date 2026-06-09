@@ -32,9 +32,6 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
         --path=/var/www/wordpress
 fi
 
-chown -R nobody:nobody /var/www/wordpress/wp-content
-chmod -R 775 /var/www/wordpress/wp-content
-
-chown -R nobody:nobody /var/www/wordpress
+chown -R www-data:www-data /var/www/wordpress
 
 exec /usr/sbin/php-fpm84 -F

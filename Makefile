@@ -1,5 +1,4 @@
-LOGIN       = ayel-arr
-DATA_PATH   = /home/$(LOGIN)/data
+DATA_PATH   = /home/ayel-arr/data
 COMPOSE     = docker compose -f srcs/docker-compose.yml
 
 all: setup
@@ -8,8 +7,6 @@ all: setup
 setup:
 	@mkdir -p $(DATA_PATH)/mariadb
 	@mkdir -p $(DATA_PATH)/wordpress
-	@grep -q "$(LOGIN).42.fr" /etc/hosts || \
-		echo "127.0.0.1 $(LOGIN).42.fr" >> /etc/hosts
 
 down:
 	$(COMPOSE) down
