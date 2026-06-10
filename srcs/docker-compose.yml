@@ -45,9 +45,13 @@ services:
 volumes:
   mariadb:
     driver_opts:
-      device: /home/ayel-arr/data/mariadb
+      type: none
+      o: bind 
+      device: '/home/ayel-arr/data/mariadb'
   wordpress:
     driver_opts:
+      o: bind
+      type: none
       device: '/home/ayel-arr/data/wordpress'
 
 networks:
