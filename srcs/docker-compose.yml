@@ -44,16 +44,10 @@ services:
 
 volumes:
   mariadb:
-    driver: local
     driver_opts:
-      type: none
-      o: bind
       device: /home/ayel-arr/data/mariadb
   wordpress:
-    driver: local
     driver_opts:
-      type: 'none'
-      o: 'bind'
       device: '/home/ayel-arr/data/wordpress'
 
 networks:
