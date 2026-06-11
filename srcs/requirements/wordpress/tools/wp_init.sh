@@ -7,8 +7,8 @@ until mysqladmin ping -h mariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; d
 done
 
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
-    
-    wp core download --allow-root --path=/var/www/wordpress
+ 
+	php -d memory_limit=512M $(which wp) core download --allow-root --path=/var/www/wordpress
     
     wp config create \
         --dbname=${MYSQL_DATABASE} \
