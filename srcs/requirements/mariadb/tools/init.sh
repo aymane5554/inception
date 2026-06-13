@@ -8,7 +8,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
     CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
     GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
-    FLUSH PRIVILEGES;" | mysqld --user=mysql --bootstrap
+    " | mysqld --user=mysql --bootstrap
 fi
 
 exec mysqld --user=mysql
