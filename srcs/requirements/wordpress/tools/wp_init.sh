@@ -32,4 +32,6 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
         --path=/var/www/wordpress
 fi
 
+chown -R nobody:nobody /var/www/wordpress/
+
 exec /usr/sbin/php-fpm84 -F
