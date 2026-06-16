@@ -343,153 +343,14 @@ docker volume prune
 docker exec wordpress mysql -h mariadb -u wordpress_user -p wordpress -e "SHOW TABLES;"
 ```
 
-### From Host
-
-To connect directly from the host, the database must be exposed (modify `docker-compose.yml`):
-
-```yaml
-mariadb:
-  ports:
-    - "3306:3306"  # Add this line
-```
-
-Then restart:
-
-```bash
-docker compose -f srcs/docker-compose.yml down
-docker compose -f srcs/docker-compose.yml up -d --build
-```
-
-Connect using:
-
-```bash
-mysql -h localhost -u wordpress_user -p wordpress
-```
-
-**Note**: For production, never expose the database port to the network. The current setup keeps it internal for security.
-
-## Troubleshooting
-
-### Common Issues
-
-#### Stack fails to start
-
-```bash
-# Check Docker daemon
-docker info
-
-# Review docker-compose logs
-docker compose -f srcs/docker-compose.yml logs
-
-# Check for port conflicts
-sudo lsof -i :443
-```
-
-#### Services not communicating
-
-```bash
-# Test network connectivity from WordPress container
-docker exec wordpress ping mariadb
-
-# Check DNS resolution
-docker exec wordpress nslookup mariadb
-```
-
-#### Data directory permission issues
-
-```bash
-# Fix permissions
-sudo chown -R 1000:1000 /home/aymane/data/mariadb
-sudo chown -R 33:33 /home/aymane/data/wordpress
-
-# Or use docker to fix
-docker exec mariadb chown -R mysql:mysql /var/lib/mysql
-docker exec wordpress chown -R www-data:www-data /var/www/wordpress
-```
-
-#### Database won't initialize
-
-```bash
-# Check MariaDB logs
-docker logs mariadb
-
-# Verify .env variables
-cat srcs/.env
-
-# Reset database
-make fclean
-make all
-```
-
-## Development Workflow
-
-### Local Development
-
-For active development on the WordPress application:
-
-1. **Edit files directly** in `/home/aymane/data/wordpress/`
-   - Changes are visible immediately in the running container
-   - No rebuild needed for PHP files
-
-2. **Restart services** for major changes:
-   ```bash
-   docker compose -f srcs/docker-compose.yml restart wordpress
-   ```
-
-3. **Access the application**:
-   ```
-   https://your-domain-name
-   ```
-
-### Plugin/Theme Development
-
-Install plugins or themes directly:
-
-```bash
-# Access WordPress container
-docker exec -it wordpress bash
-
-# Install plugin
-cd /var/www/wordpress
-wp plugin install plugin-name --activate
-
-# Install theme
-wp theme install theme-name --activate
-```
-
-### Database Queries
-
-Execute SQL queries from the host:
-
-```bash
-# Create database dump
-docker exec mariadb mysqldump -u wordpress_user -p wordpress > backup.sql
-
-# Restore from dump
-docker exec -i mariadb mysql -u wordpress_user -p wordpress < backup.sql
-```
-
-### Updating Configuration
-
-Edit configuration files and rebuild:
-
-```bash
-# Modify .env
-nano srcs/.env
-
-# Restart services to apply changes
-make down
-make all
-```
-
 ## Network Architecture
 
 The stack uses a custom bridge network (`inception`) for service-to-service communication:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Host Network                          │
-│                    Port 443 (HTTPS)                      │
+│                    Host Network                         │
+│                    Port 443 (HTTPS)                     │
 └──────────────────────┬──────────────────────────────────┘
                        │
                        │ Host:Container
@@ -502,67 +363,10 @@ The stack uses a custom bridge network (`inception`) for service-to-service comm
                        │
         ┌──────────────────────────────────────┐
         │     Bridge Network: inception        │
-        │  (Internal container communication)   │
-        │                                       │
-    ┌───┴──────┐                      ┌──────┴──────┐
-    │ WordPress │ ◄────────────────► │   MariaDB    │
-    │ (Port 9000)│      (Port 3306)   │  (Internal)  │
-    └──────────┘                      └─────────────┘
+        │  (Internal container communication)  │
+        │                                      │
+    ┌───┴────────┐                    ┌────────┴────┐
+    │ WordPress  │ ◄────────────────► │   MariaDB   │
+    │ (Port 9000)│      (Port 3306)   │  (Internal) │
+    └────────────┘                    └─────────────┘
 ```
-
-## Security Considerations
-
-### For Production Deployment
-
-⚠️ **Current Setup is NOT suitable for production**
-
-Changes needed for production:
-
-1. **Replace self-signed certificates** with valid SSL certificates
-2. **Expose only HTTPS port** (currently 443)
-3. **Keep database port internal** (already done)
-4. **Use strong passwords** in `.env`
-5. **Enable automatic HTTPS renewal**
-6. **Set up proper firewall rules**
-7. **Regular security updates** for images
-
-## Maintenance
-
-### Regular Tasks
-
-```bash
-# Check logs for errors
-docker logs mariadb | grep ERROR
-docker logs wordpress | tail -20
-
-# Update Docker images
-docker pull mariadb:latest
-docker pull nginx:latest
-docker pull php:latest
-
-# Rebuild with latest base images
-make clean
-make all
-```
-
-### Monitoring
-
-```bash
-# Monitor resource usage
-watch -n 5 'docker stats --no-stream'
-
-# Check disk usage
-du -sh /home/aymane/data/*
-
-# Check running containers
-docker compose -f srcs/docker-compose.yml ps
-```
-
-## References
-
-- [Docker Documentation](https://docs.docker.com/)
-- [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
-- [MariaDB Official Documentation](https://mariadb.com/kb/en/)
-- [WordPress REST API](https://developer.wordpress.org/rest-api/)
-- [Nginx Documentation](https://nginx.org/en/docs/)
-- [42 Inception Project Guidelines](https://github.com/42School/)
