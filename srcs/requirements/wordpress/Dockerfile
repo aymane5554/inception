@@ -2,13 +2,11 @@ FROM alpine:3.23
 
 WORKDIR /var/www/wordpress
 
-COPY tools/wp_init.sh /usr/local/bin/wp_init.sh
-
-RUN apk update && apk add php84 php84-fpm php84-mysqli php84-phar curl mariadb-client
-
-RUN ln -s /usr/bin/php84 /usr/bin/php
+RUN apk update && apk add php84 php84-fpm php84-mysqli php84-phar mariadb-client php84-mbstring
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /usr/local/bin/wp
+
+COPY tools/wp_init.sh /usr/local/bin/wp_init.sh
 
 RUN chmod +x /usr/local/bin/wp /usr/local/bin/wp_init.sh
 
