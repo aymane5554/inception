@@ -4,7 +4,7 @@ WORKDIR /var/www/wordpress
 
 COPY tools/wp_init.sh /usr/local/bin/wp_init.sh
 
-RUN apk update && apk add php84 php84-fpm php84-mysqli php84-phar php84-mbstring php84-tokenizer curl mariadb-client
+RUN apk update && apk add php84 php84-fpm php84-mysqli php84-phar curl mariadb-client
 
 RUN ln -s /usr/bin/php84 /usr/bin/php
 
