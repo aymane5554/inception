@@ -1,6 +1,6 @@
 #!/bin/sh
 
-until mysqladmin ping -h mariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; do
+until mysqladmin ping -h mariadb -P 3306 -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; do
     sleep 2
 done
 
