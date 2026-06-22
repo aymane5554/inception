@@ -123,3 +123,7 @@ Bind mounts map a specific host directory into a container. They are useful when
 
 - [Docker Documentation](https://docs.docker.com/)
 - [Docker Compose Documentation](https://docs.docker.com/compose/)
+
+## AI USAGE
+
+I used AI as a learning and documentation tool. It helped me better understand Docker concepts, choose the right tools and configurations, and troubleshoot issues when needed. AI also assisted in improving the clarity of the project documentation.
