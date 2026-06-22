@@ -30,9 +30,6 @@ The project uses a `.env` file located at `srcs/.env` to manage all environment 
 #### Required Variables
 
 ```
-# Domain Configuration
-DOMAIN_NAME=example.com
-
 # MariaDB Configuration
 MYSQL_ROOT_PASSWORD=your_root_password
 MYSQL_DATABASE=wordpress

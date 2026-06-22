@@ -79,7 +79,6 @@ make re
 
 The stack reads its configuration from `srcs/.env`. The file defines:
 
-- `DOMAIN_NAME`
 - `MYSQL_ROOT_PASSWORD`
 - `MYSQL_DATABASE`
 - `MYSQL_USER`

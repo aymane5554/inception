@@ -36,7 +36,6 @@ The stack includes three services that work together:
 Before starting the stack for the first time, review the configuration file at `srcs/.env`. This file contains all the settings you might want to customize:
 
 ```
-DOMAIN_NAME           - Your website domain (e.g., example.com)
 MYSQL_ROOT_PASSWORD   - Root password for MariaDB
 MYSQL_DATABASE        - Database name for WordPress
 MYSQL_USER            - Database user for WordPress
@@ -111,10 +110,8 @@ make fclean
 Once the stack is running, access your WordPress site at:
 
 ```
-https://your-domain-name
+https://ayel-arr.42.fr
 ```
-
-Replace `your-domain-name` with the value you set in `DOMAIN_NAME` in the `.env` file.
 
 **Note**: The site uses a self-signed HTTPS certificate, so your browser may show a security warning on first access. This is normal and expected. You can safely proceed by clicking "Advanced" or "Continue" (depending on your browser).
 
@@ -123,7 +120,7 @@ Replace `your-domain-name` with the value you set in `DOMAIN_NAME` in the `.env`
 To manage your website, access the WordPress admin panel at:
 
 ```
-https://your-domain-name/wp-admin
+https://ayel-arr.42.fr/wp-admin
 ```
 
 Log in using the admin credentials:
